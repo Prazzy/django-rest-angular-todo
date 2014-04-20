@@ -9,19 +9,30 @@
     <script src="{{STATIC_URL}}js/services.js"></script>
 </head>
 <body>
-    <h1>Words List</h1>
+    <h1>Todo List app</h1>
     <div ng-controller="TodoListCtl" class="container">
-        <input type='text' ng-model='todo_list_name' placeholder='Enter a word'></input>
+        <input type='text' ng-model='todo_list_name' placeholder='Enter a todo list item'></input>
         <button class='todo_save' ng-click='createTodoItem()'>Add</button>
+
         {% verbatim %}
-        <h2>Words ({{todo_items.length}})</h2>
+        <h2>Tasks</h2>
         <ul>
             <li ng-hide='todo_item.done' ng-repeat="todo_item in todo_items">
                 {{ todo_item.description }}
-
+                <input type="checkbox" ng-model="todo_item.done" ng-click='toggleTodoItemStatus(todo_item)'>
                 <button ng-click='deleteTodoItem(todo_item)'>Delete</button>
             </li>
         </ul>
+
+        <h2>Completed</h2>
+        <ul>
+            <li ng-show='todo_item.done' ng-repeat="todo_item in todo_items">
+                {{ todo_item.description }}
+                <input type="checkbox" ng-model="todo_item.done" ng-click='toggleTodoItemStatus(todo_item)'>
+                <button ng-click='deleteTodoItem(todo_item)'>Delete</button>
+            </li>
+        </ul>
+
         {% endverbatim %}
     </div>
 </body>
